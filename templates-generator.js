@@ -90,7 +90,7 @@ function createComponent (pathDir = options.pathDir) {
     const filePath = path.join(pathDir, `${options.componentName}${postfix}.js`)
     if (!fs.existsSync(filePath) || options.isForce) {
       const fd = fs.openSync(filePath, 'w')
-      const str = getTemplate('component', options.componentName+postfix)[options.type][options.rdp]
+      const str = getTemplate('component', options.componentName+postfix)[options.type]
       fs.writeSync(fd, str, null, 'utf8')
       fs.closeSync(fd)
       console.log(chalk.green('Файл ' + filePath + ' создан.'))
