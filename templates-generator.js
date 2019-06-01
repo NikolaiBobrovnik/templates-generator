@@ -7,6 +7,7 @@ const defaultOptions = {
   componentName: 'Test', // имя компонента, для которого создаем структуру
   viewVersion: 'both', // версия только mobile/desktop/tablet или mobile/desktop [both, m, d, t]
   type: 'c', // тип компонента c - class, f - function
+  rdp: false, // remote-data-provider
   isForce: false // принудительное удаление папки, если она существует
 }
 
@@ -23,7 +24,16 @@ function getTemplate (tpl, componentName) {
     component: {
       c: `import React, { PureComponent } from 'react'
 // import PropTypes from 'prop-types'
+import { withRemoteData } from 'remote-data-provider'
+import { axiosLocal } from 'services/axiosInstances'
 import css from './${componentName}.module.scss'
+
+@withRemoteData({
+  request: {
+    url: 'start.json'
+  },
+  axiosInstance: axiosLocal
+})
 
 class ${componentName} extends PureComponent {
   render () {
@@ -80,7 +90,7 @@ function createComponent (pathDir = options.pathDir) {
     const filePath = path.join(pathDir, `${options.componentName}${postfix}.js`)
     if (!fs.existsSync(filePath) || options.isForce) {
       const fd = fs.openSync(filePath, 'w')
-      const str = getTemplate('component', options.componentName+postfix)[options.type]
+      const str = getTemplate('component', options.componentName+postfix)[options.type][options.rdp]
       fs.writeSync(fd, str, null, 'utf8')
       fs.closeSync(fd)
       console.log(chalk.green('Файл ' + filePath + ' создан.'))
