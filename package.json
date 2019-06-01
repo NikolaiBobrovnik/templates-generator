@@ -1,0 +1,27 @@
+{
+  "name": "@aic/templates-generator",
+  "description": "Создание структуры папок компонента для React",
+  "author": "Gegele Danila",
+  "license": "MIT",
+  "version": "0.1.8",
+  "private": false,
+  "devDependencies": {},
+  "main": "templates-generator.js",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.aic.ru:aic-front/templates-generator.git"
+  },
+  "keywords": [
+    "templates",
+    "React",
+    "node"
+  ],
+  "scripts": {
+    "start": "node templates-generator.js --targetPath=src/components --componentName=Test --viewVersion=t --type=f "
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "fs-extra": "^8.0.1",
+    "minimist": "^1.2.0"
+  }
+}
